@@ -1,0 +1,25 @@
+{
+  "name": "filenamelint",
+  "version": "0.0.1",
+  "description": "Linter for file and directories names",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigsergey/filenamelint.git"
+  },
+  "keywords": [
+    "linter",
+    "filename",
+    "directory",
+    "name"
+  ],
+  "author": "bigsergey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bigsergey/filenamelint/issues"
+  },
+  "homepage": "https://github.com/bigsergey/filenamelint#readme"
+}
