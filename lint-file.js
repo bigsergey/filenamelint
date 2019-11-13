@@ -5,8 +5,13 @@ const kebabCase = /^[a-z0-9]*(?:[a-z0-9+-])+[a-z0-9]+$/;
 module.exports = function lintFile(file) {
   const extensionName = path.extname(file);
   const basename = path.basename(file, extensionName);
+  const isValid = kebabCase.test(basename);
+  const error = !isValid
+    ? { message: `${file} has wrong name.` }
+    : undefined;
 
-  if (!kebabCase.test(basename)) {
-    console.error(`${file} has wrong name`);
-  }
+  return {
+    isValid,
+    error,
+  };
 }
