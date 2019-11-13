@@ -22,6 +22,9 @@
     "url": "https://github.com/bigsergey/filenamelint/issues"
   },
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "fast-glob": "^3.1.0"
   }
