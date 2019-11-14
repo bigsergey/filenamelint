@@ -1,4 +1,4 @@
-function dummyFunction(message:string):void {
+function dummyFunction(message: string): void {
   console.log(message);
 }
 
