@@ -2,6 +2,10 @@
   "name": "filenamelint",
   "version": "0.0.1",
   "description": "Linter for file and directories names",
+  "engines": {
+    "node": ">=12.10.0",
+    "npm": ">=6.10.3"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
