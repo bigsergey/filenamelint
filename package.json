@@ -4,7 +4,7 @@
   "description": "Linter for file and directories names",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,8 @@
     "url": "https://github.com/bigsergey/filenamelint/issues"
   },
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
-  "scripts": {
-    "start": "node index.js"
-  },
   "dependencies": {
-    "fast-glob": "^3.1.0"
+    "fast-glob": "^3.1.0",
+    "function-pipe": "^1.2.4"
   }
 }
