@@ -1,6 +1,6 @@
 {
   "name": "filenamelint",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Linter for file and directories names",
   "engines": {
     "node": ">=12.10.0",
