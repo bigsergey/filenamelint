@@ -6,10 +6,12 @@
     "node": ">=12.10.0",
     "npm": ">=6.10.3"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "start": "node index.js",
-    "build": "exit 0"
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,11 @@
     "fast-glob": "3.1.0",
     "function-pipe": "1.2.4",
     "kebab-case": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "12.12.7",
+    "nodemon": "1.19.4",
+    "ts-node": "8.5.0",
+    "typescript": "3.7.2"
   }
 }
