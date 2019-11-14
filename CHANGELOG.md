@@ -11,3 +11,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * validation script checking if filenames have kebab case
 * `.npmrc` config
+* `engine` property to `package.json`
