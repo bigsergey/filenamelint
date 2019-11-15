@@ -1,10 +1,14 @@
 {
   "name": "filenamelint",
-  "version": "0.0.1",
-  "description": "Linter for file and directories names",
+  "version": "0.1.0",
+  "description": "Linter for file and directory names",
+  "engines": {
+    "node": ">=12.10.0",
+    "npm": ">=6.10.3"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +25,10 @@
   "bugs": {
     "url": "https://github.com/bigsergey/filenamelint/issues"
   },
-  "homepage": "https://github.com/bigsergey/filenamelint#readme"
+  "homepage": "https://github.com/bigsergey/filenamelint#readme",
+  "dependencies": {
+    "fast-glob": "3.1.0",
+    "function-pipe": "1.2.4",
+    "kebab-case": "1.0.0"
+  }
 }
