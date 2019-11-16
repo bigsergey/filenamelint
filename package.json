@@ -43,7 +43,6 @@
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
   "dependencies": {
     "fast-glob": "3.1.0",
-    "function-pipe": "1.2.4",
     "kebab-case": "1.0.0"
   },
   "devDependencies": {
