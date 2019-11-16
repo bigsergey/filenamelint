@@ -15,7 +15,7 @@
     "build": "tsc -p .",
     "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "lint": "eslint \"src/**\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node lib/index.js"
   },
   "lint-staged": {
     "*.ts": [

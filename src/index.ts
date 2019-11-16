@@ -2,7 +2,7 @@ import glob from 'fast-glob';
 
 import lintFiles from './lint-files';
 
-glob('**/*', { ignore: ['node_modules'] })
+glob('**/*', { ignore: ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'] })
   .then((files: string[]): void => {
     const errorMessages: string[] = lintFiles(files);
 
