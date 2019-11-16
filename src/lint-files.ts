@@ -10,8 +10,8 @@ function lintFile(file: string): string | undefined {
 }
 
 export default function lintFiles(files: string[]): string[] {
-  return files.reduce((acc: string[], file: string): string[] => {
-    const lintResult: string | undefined = lintFile(file);
-    return lintResult ? acc.concat(lintResult) : acc;
-  }, []);
+  return files.flatMap(file => {
+    const lintResult = lintFile(file);
+    return lintResult ? [lintResult] : [];
+  });
 }

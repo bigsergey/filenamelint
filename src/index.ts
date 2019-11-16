@@ -3,8 +3,8 @@ import glob from 'fast-glob';
 import lintFiles from './lint-files';
 
 glob('**/*', { ignore: ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'] })
-  .then((files: string[]): void => {
-    const errorMessages: string[] = lintFiles(files);
+  .then(files => {
+    const errorMessages = lintFiles(files);
 
     if (errorMessages.length > 0) {
       errorMessages.forEach(message => console.error(message));
@@ -14,7 +14,7 @@ glob('**/*', { ignore: ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'] 
       process.exit(0);
     }
   })
-  .catch((error: Error): void => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
   });
