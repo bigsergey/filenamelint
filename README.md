@@ -2,4 +2,4 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/bigsergey/filenamelint.svg)](https://greenkeeper.io/)
 
-Linter for file and directories names.
+Linter for file and directory names.
