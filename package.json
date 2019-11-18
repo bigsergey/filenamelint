@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "Linter for file and directory names",
   "engines": {
-    "node": ">=12.10.0",
+    "node": ">=11.14.0",
     "npm": ">=6.10.3"
   },
   "main": "lib/index.js",
