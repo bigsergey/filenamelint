@@ -1,15 +1,32 @@
 {
   "name": "filenamelint",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Linter for file and directory names",
   "engines": {
-    "node": ">=12.10.0",
+    "node": ">=11.14.0",
     "npm": ">=6.10.3"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
+  "files": [
+    "lib/**/*"
+  ],
   "scripts": {
-    "start": "node index.js",
-    "build": "exit 0"
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "lint": "eslint \"src/**\"",
+    "test": "node lib/index.js"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "repository": {
     "type": "git",
@@ -29,7 +46,20 @@
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
   "dependencies": {
     "fast-glob": "3.1.0",
-    "function-pipe": "1.2.4",
     "kebab-case": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "12.12.7",
+    "@typescript-eslint/eslint-plugin": "2.7.0",
+    "@typescript-eslint/parser": "2.7.0",
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "6.5.0",
+    "eslint-plugin-prettier": "3.1.1",
+    "husky": "3.0.9",
+    "lint-staged": "9.4.3",
+    "nodemon": "1.19.4",
+    "prettier": "1.19.1",
+    "ts-node": "8.5.0",
+    "typescript": "3.7.2"
   }
 }
