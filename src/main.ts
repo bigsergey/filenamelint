@@ -2,8 +2,9 @@ import glob from 'fast-glob';
 
 import lintFiles from './lint-files';
 
-const ERROR_CODE = 1;
-const SUCCESS_CODE = 0;
+export const ERROR_CODE = 1;
+export const SUCCESS_CODE = 0;
+
 const ignore = ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'];
 
 export default function main(): Promise<number> {
