@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* unit tests with `Jest`
+* unit tests with `Jest` with code coverage report
 
 ## [0.2.0] - 2019-11-16
 
