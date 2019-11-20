@@ -2,8 +2,9 @@ import glob from 'fast-glob';
 
 import lintFiles from './lint-files';
 
-export const ERROR_CODE = 1;
-export const SUCCESS_CODE = 0;
+export const SUCCESS_NO_LINTING_ERRORS = 0;
+export const SUCCESS_WITH_LINTING_ERRORS = 1;
+export const UNEXPECTED_ERROR = 2;
 
 const ignore = ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'];
 
@@ -14,13 +15,13 @@ export default function main(): Promise<number> {
 
       if (errorMessages.length > 0) {
         errorMessages.forEach(message => console.error(message));
-        return ERROR_CODE;
+        return SUCCESS_WITH_LINTING_ERRORS;
       } else {
-        return SUCCESS_CODE;
+        return SUCCESS_NO_LINTING_ERRORS;
       }
     })
     .catch(error => {
       console.error(error);
-      return ERROR_CODE;
+      return UNEXPECTED_ERROR;
     });
 }
