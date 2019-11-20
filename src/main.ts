@@ -14,13 +14,13 @@ export default function main(): Promise<number> {
 
       if (errorMessages.length > 0) {
         errorMessages.forEach(message => console.error(message));
-        return Promise.resolve(ERROR_CODE);
+        return ERROR_CODE;
       } else {
-        return Promise.resolve(SUCCESS_CODE);
+        return SUCCESS_CODE;
       }
     })
     .catch(error => {
       console.error(error);
-      return Promise.resolve(ERROR_CODE);
+      return ERROR_CODE;
     });
 }
