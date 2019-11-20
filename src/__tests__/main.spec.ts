@@ -11,7 +11,7 @@ test('should call glob with correct arguments', async () => {
 
   await main();
 
-  expect(glob).toHaveBeenCalledTimes(ERROR_CODE);
+  expect(glob).toHaveBeenCalledTimes(1);
   expect(glob).toHaveBeenCalledWith('**/*', {
     ignore: ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'],
   });
