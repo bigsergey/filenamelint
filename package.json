@@ -16,7 +16,7 @@
   "scripts": {
     "start": "npm run build:live",
     "build": "tsc -p .",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "build:live": "tsc -w",
     "lint": "eslint \"src/**\"",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
@@ -64,7 +64,6 @@
     "husky": "3.1.0",
     "jest": "24.9.0",
     "lint-staged": "9.5.0",
-    "nodemon": "2.0.0",
     "prettier": "1.19.1",
     "ts-jest": "24.2.0",
     "ts-node": "8.5.4",
