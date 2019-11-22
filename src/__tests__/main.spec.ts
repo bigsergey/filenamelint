@@ -4,7 +4,8 @@ jest.mock('../lint-files');
 import glob from 'fast-glob';
 
 import lintFiles from '../lint-files';
-import main, { SUCCESS_NO_LINTING_ERRORS, SUCCESS_WITH_LINTING_ERRORS, UNEXPECTED_ERROR } from '../main';
+import { ExitCodes } from '../constants';
+import main from '../main';
 
 const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
 const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
@@ -29,13 +30,13 @@ test('should return success code when there are no any files', async () => {
   mockedGlob.mockReturnValue(Promise.resolve([]));
   mockedLintFiles.mockReturnValue([]);
 
-  expect(await main()).toEqual(SUCCESS_NO_LINTING_ERRORS);
+  expect(await main()).toEqual(ExitCodes.SuccessNoLintingErrors);
 });
 
 test('should return error code when glob throws', async () => {
   mockedGlob.mockReturnValue(Promise.reject(new Error()));
 
-  expect(await main()).toEqual(UNEXPECTED_ERROR);
+  expect(await main()).toEqual(ExitCodes.UnexpectedError);
 });
 
 test('should return success code when all filenames are valid', async () => {
@@ -47,7 +48,7 @@ test('should return success code when all filenames are valid', async () => {
 
   expect(mockedLintFiles).toHaveBeenCalledTimes(1);
   expect(mockedLintFiles).toHaveBeenCalledWith(files);
-  expect(code).toEqual(SUCCESS_NO_LINTING_ERRORS);
+  expect(code).toEqual(ExitCodes.SuccessNoLintingErrors);
 });
 
 test('should return error code when some filenames are invalid', async () => {
@@ -59,5 +60,5 @@ test('should return error code when some filenames are invalid', async () => {
 
   expect(mockedLintFiles).toHaveBeenCalledTimes(1);
   expect(mockedLintFiles).toHaveBeenCalledWith(files);
-  expect(code).toEqual(SUCCESS_WITH_LINTING_ERRORS);
+  expect(code).toEqual(ExitCodes.SuccessWithLintingErrors);
 });
