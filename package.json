@@ -7,7 +7,7 @@
     "npm": ">=6.10.3"
   },
   "bin": {
-    "filenamelint": "./lib/cli.js"
+    "filenamelint": "./lib/cli/index.js"
   },
   "main": "lib/index.js",
   "files": [
@@ -18,7 +18,7 @@
     "build": "tsc -p .",
     "build:live": "tsc -w",
     "lint": "eslint \"src/**\"",
-    "test": "jest --coverage",
+    "test": "jest",
     "test:watch": "jest --watch"
   },
   "lint-staged": {
