@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 test('should call glob with correct arguments', async () => {
-  mockedGlob.mockReturnValue(Promise.resolve([]));
+  mockedGlob.mockResolvedValue([]);
 
   await main();
 
@@ -27,21 +27,21 @@ test('should call glob with correct arguments', async () => {
 });
 
 test('should return success code when there are no any files', async () => {
-  mockedGlob.mockReturnValue(Promise.resolve([]));
+  mockedGlob.mockResolvedValue([]);
   mockedLintFiles.mockReturnValue([]);
 
   expect(await main()).toEqual(ExitCodes.SuccessNoLintingErrors);
 });
 
 test('should return error code when glob throws', async () => {
-  mockedGlob.mockReturnValue(Promise.reject(new Error()));
+  mockedGlob.mockRejectedValue(new Error());
 
   expect(await main()).toEqual(ExitCodes.UnexpectedError);
 });
 
 test('should return success code when all filenames are valid', async () => {
   const files = ['index.js', 'index.css'];
-  mockedGlob.mockReturnValue(Promise.resolve(files));
+  mockedGlob.mockResolvedValue(files);
   mockedLintFiles.mockReturnValue([]);
 
   const code = await main();
@@ -53,7 +53,7 @@ test('should return success code when all filenames are valid', async () => {
 
 test('should return error code when some filenames are invalid', async () => {
   const files = ['camelCase.js', 'PascalCase.js', 'index.css'];
-  mockedGlob.mockReturnValue(Promise.resolve(files));
+  mockedGlob.mockResolvedValue(files);
   mockedLintFiles.mockReturnValue(['camelCase.js']);
 
   const code = await main();
