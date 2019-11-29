@@ -17,6 +17,7 @@ afterEach(() => {
 
 test('should call glob with correct arguments', async () => {
   mockedGlob.mockResolvedValue([]);
+  mockedLintFiles.mockReturnValue([]);
 
   await main();
 
@@ -32,7 +33,7 @@ test('should return success code when there are no any files', async () => {
 });
 
 test('should return error code when glob throws', async () => {
-  mockedGlob.mockRejectedValue(new Error());
+  mockedGlob.mockRejectedValue(new Error('Test error'));
 
   expect(await main()).toEqual(ExitCodes.UnexpectedError);
 });
