@@ -53,7 +53,7 @@ test('should return success code when all filenames are valid', async () => {
 test('should return error code when some filenames are invalid', async () => {
   const files = ['camelCase.js', 'PascalCase.js', 'index.css'];
   mockedGlob.mockResolvedValue(files);
-  mockedLintFiles.mockReturnValue(['camelCase.js']);
+  mockedLintFiles.mockReturnValue(['lint files error']);
 
   const code = await main();
 
