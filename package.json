@@ -18,7 +18,7 @@
     "build": "tsc -p .",
     "build:live": "tsc -w",
     "lint": "eslint \"src/**\"",
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
   "lint-staged": {

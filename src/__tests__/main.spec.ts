@@ -4,8 +4,8 @@ jest.mock('../lint-files');
 import glob from 'fast-glob';
 
 import lintFiles from '../lint-files';
-import { ExitCodes } from '../constants';
-import main from '../main';
+import main, { ExitCodes } from '../main';
+import { defaultOptions } from '../get-options';
 
 const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
 const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
@@ -21,9 +21,7 @@ test('should call glob with correct arguments', async () => {
   await main();
 
   expect(glob).toHaveBeenCalledTimes(1);
-  expect(glob).toHaveBeenCalledWith('**/*', {
-    ignore: ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'],
-  });
+  expect(glob).toHaveBeenCalledWith('**/*', defaultOptions);
 });
 
 test('should return success code when there are no any files', async () => {

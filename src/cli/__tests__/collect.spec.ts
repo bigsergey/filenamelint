@@ -1,6 +1,10 @@
 import collect from '../collect';
 
-test('should push value to the array', () => {
+test('should create value when previous value is undefined', () => {
+  expect(collect(1)).toEqual([1]);
+});
+
+test('should push value to empty the array', () => {
   expect(collect(1, [])).toEqual([1]);
 });
 

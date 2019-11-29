@@ -3,11 +3,14 @@ import program from 'commander';
 
 import main from '../main';
 import collect from './collect';
+import getOptions from '../get-options';
 
 program.version(require('../../package.json').version);
 
-program.option('--ignore <path>', 'Specify path of ignore file', collect, []);
+program.option('--ignore-pattern <pattern>', 'Pattern of files to ignore', collect);
 
 program.parse(process.argv);
 
-main({ ignore: program.ignore }).then(process.exit);
+const { ignorePattern } = program;
+
+main(getOptions({ ignore: ignorePattern })).then(process.exit);
