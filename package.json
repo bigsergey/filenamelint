@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
   "dependencies": {
-    "fast-glob": "3.1.0",
+    "fast-glob": "3.1.1",
     "kebab-case": "1.0.0"
   },
   "devDependencies": {
