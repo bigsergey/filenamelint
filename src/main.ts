@@ -1,27 +1,28 @@
 import glob from 'fast-glob';
 
+import getOptions, { Options } from './get-options';
 import lintFiles from './lint-files';
 
-export const SUCCESS_NO_LINTING_ERRORS = 0;
-export const SUCCESS_WITH_LINTING_ERRORS = 1;
-export const UNEXPECTED_ERROR = 2;
+export enum ExitCodes {
+  SuccessNoLintingErrors = 0,
+  SuccessWithLintingErrors = 1,
+  UnexpectedError = 2,
+}
 
-const ignore = ['node_modules', 'README.md', 'CHANGELOG.md', 'LICENSE'];
-
-export default function main(): Promise<number> {
-  return glob('**/*', { ignore })
+export default function main(options: Options = {}): Promise<number> {
+  return glob('**/*', getOptions(options))
     .then(files => {
       const errorMessages = lintFiles(files);
 
       if (errorMessages.length > 0) {
         errorMessages.forEach(message => console.error(message));
-        return SUCCESS_WITH_LINTING_ERRORS;
-      } else {
-        return SUCCESS_NO_LINTING_ERRORS;
+        return ExitCodes.SuccessWithLintingErrors;
       }
+
+      return ExitCodes.SuccessNoLintingErrors;
     })
     .catch(error => {
       console.error(error);
-      return UNEXPECTED_ERROR;
+      return ExitCodes.UnexpectedError;
     });
 }
