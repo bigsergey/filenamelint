@@ -2,12 +2,12 @@ import program from 'commander';
 
 import collect from './collect';
 
-program.version(require('../../package.json').version);
+program
+  .version(require('../../package.json').version)
+  .option('--ignore-pattern <pattern>', 'Pattern of files to ignore', collect)
+  .option('--format <string>', 'File name format')
+  .parse(process.argv);
 
-program.option('--ignore-pattern <pattern>', 'Pattern of files to ignore', collect);
+const { ignorePattern, format } = program;
 
-program.parse(process.argv);
-
-const { ignorePattern } = program;
-
-export default { ignore: ignorePattern };
+export default { ignore: ignorePattern, format };

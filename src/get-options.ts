@@ -11,13 +11,13 @@ export interface Options {
 }
 
 export const defaultOptions = {
-  ignore: ['node_modules/**', 'README.md', 'CHANGELOG.md', 'LICENSE'],
+  ignore: ['node_modules/**', 'coverage/**', 'README.md', 'CHANGELOG.md', 'LICENSE'],
   format: Formats.kebabCase,
 };
 
-export default function getOptions(options: Partial<Options> = {}): Options {
+export default function getOptions({ ignore, format }: Partial<Options> = {}): Options {
   return {
-    ...options,
-    ...defaultOptions,
+    ignore: ignore || defaultOptions.ignore,
+    format: format || defaultOptions.format,
   };
 }
