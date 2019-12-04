@@ -11,7 +11,7 @@ import collect from '../collect';
 const mockedCommanderOption = (commander.option as unknown) as jest.Mock<Command['option']>;
 
 test('should export correct option object', () => {
-  expect(programOptions).toEqual({ ignore: undefined });
+  expect(programOptions).toEqual({ ignore: undefined, format: undefined });
 });
 
 test('should set version', () => {
@@ -25,6 +25,17 @@ test('should define --ignore-pattern flag', () => {
   expect(typeof description).toBe('string');
   expect(processingFunction).toBe(collect);
   expect(mockedCommanderOption).toHaveBeenCalledTimes(1);
+});
+
+test('should define --format flag', () => {
+  const [name, description] = mockedCommanderOption.mock.calls[1];
+
+  expect(name).toContain('--format');
+  expect(typeof description).toBe('string');
+});
+
+test('should define two options', () => {
+  expect(mockedCommanderOption).toHaveBeenCalledTimes(2);
 });
 
 test('should parse process arguments', () => {
