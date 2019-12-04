@@ -15,7 +15,7 @@ test('should export correct option object', () => {
 });
 
 test('should set version', () => {
-  expect(commander.version).toHaveBeenCalledWith('0.3.0');
+  expect(commander.version).toHaveBeenCalledWith('0.3.1');
 });
 
 test('should define --ignore-pattern flag', () => {
