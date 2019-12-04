@@ -9,7 +9,7 @@ export enum ExitCodes {
   UnexpectedError = 2,
 }
 
-export default function main(options: Partial<Options>): Promise<number> {
+export default function main(options: Partial<Options>): Promise<ExitCodes> {
   const { ignore, format } = getOptions(options);
   return glob('**/*', { ignore })
     .then(files => {
