@@ -15,9 +15,9 @@ export const defaultOptions = {
   format: Formats.kebabCase,
 };
 
-export default function getOptions({ ignore, format }: Partial<Options> = {}): Options {
+export default function getOptions(options: Partial<Options> = {}): Options {
   return {
-    ignore: ignore || defaultOptions.ignore,
-    format: format || defaultOptions.format,
+    ...options,
+    ...defaultOptions,
   };
 }
