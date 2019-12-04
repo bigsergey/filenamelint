@@ -4,7 +4,7 @@ import cli from './run-cli';
 test('should return correct program version', async () => {
   const { code, stdout } = await cli(['--version'], 'src-mock');
 
-  expect(stdout).toContain('0.3.0');
+  expect(stdout).toContain('0.3.1');
   expect(code).toBe(ExitCodes.SuccessNoLintingErrors);
 });
 
