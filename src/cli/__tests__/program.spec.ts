@@ -24,7 +24,6 @@ test('should define --ignore-pattern flag', () => {
   expect(name).toContain('--ignore-pattern');
   expect(typeof description).toBe('string');
   expect(processingFunction).toBe(collect);
-  expect(mockedCommanderOption).toHaveBeenCalledTimes(1);
 });
 
 test('should define --format flag', () => {
