@@ -1,34 +1,42 @@
 jest.mock('fast-glob');
 jest.mock('../lint-files');
+jest.mock('../get-options');
 
 import glob from 'fast-glob';
 
 import lintFiles from '../lint-files';
+import getOptions, { Formats } from '../get-options';
 import main, { ExitCodes } from '../main';
-import { defaultOptions } from '../get-options';
+import { Options } from '../get-options';
 
 const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
 const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
+const mockedGetOptions = (getOptions as unknown) as jest.Mock<Options>;
+
+const ignore = ['ignore'];
+const format = Formats.kebabCase;
+const mockedOptions = { ignore, format };
+
+beforeEach(() => {
+  mockedGetOptions.mockReturnValue(mockedOptions);
+  mockedGlob.mockResolvedValue([]);
+  mockedLintFiles.mockReturnValue([]);
+});
 
 afterEach(() => {
+  mockedGetOptions.mockRestore();
   mockedGlob.mockRestore();
   mockedLintFiles.mockRestore();
 });
 
 test('should call glob with correct arguments', async () => {
-  mockedGlob.mockResolvedValue([]);
-  mockedLintFiles.mockReturnValue([]);
-
   await main();
 
   expect(glob).toHaveBeenCalledTimes(1);
-  expect(glob).toHaveBeenCalledWith('**/*', defaultOptions);
+  expect(glob).toHaveBeenCalledWith('**/*', { ignore });
 });
 
 test('should return success code when there are no any files', async () => {
-  mockedGlob.mockResolvedValue([]);
-  mockedLintFiles.mockReturnValue([]);
-
   expect(await main()).toEqual(ExitCodes.SuccessNoLintingErrors);
 });
 
@@ -46,7 +54,7 @@ test('should return success code when all filenames are valid', async () => {
   const code = await main();
 
   expect(mockedLintFiles).toHaveBeenCalledTimes(1);
-  expect(mockedLintFiles).toHaveBeenCalledWith(files);
+  expect(mockedLintFiles).toHaveBeenCalledWith(files, format);
   expect(code).toEqual(ExitCodes.SuccessNoLintingErrors);
 });
 
@@ -58,6 +66,6 @@ test('should return error code when some filenames are invalid', async () => {
   const code = await main();
 
   expect(mockedLintFiles).toHaveBeenCalledTimes(1);
-  expect(mockedLintFiles).toHaveBeenCalledWith(files);
+  expect(mockedLintFiles).toHaveBeenCalledWith(files, format);
   expect(code).toEqual(ExitCodes.SuccessWithLintingErrors);
 });
