@@ -29,43 +29,45 @@ afterEach(() => {
   mockedLintFiles.mockRestore();
 });
 
-test('should call glob with correct arguments', async () => {
-  await main();
+describe('main', () => {
+  test('should call glob with correct arguments', async () => {
+    await main();
 
-  expect(glob).toHaveBeenCalledTimes(1);
-  expect(glob).toHaveBeenCalledWith('**/*', { ignore });
-});
+    expect(glob).toHaveBeenCalledTimes(1);
+    expect(glob).toHaveBeenCalledWith('**/*', { ignore });
+  });
 
-test('should return success code when there are no any files', async () => {
-  expect(await main()).toEqual(ExitCodes.SuccessNoLintingErrors);
-});
+  test('should return success code when there are no any files', async () => {
+    expect(await main()).toEqual(ExitCodes.SuccessNoLintingErrors);
+  });
 
-test('should return error code when glob throws', async () => {
-  mockedGlob.mockRejectedValue(new Error('Test error'));
+  test('should return error code when glob throws', async () => {
+    mockedGlob.mockRejectedValue(new Error('Test error'));
 
-  expect(await main()).toEqual(ExitCodes.UnexpectedError);
-});
+    expect(await main()).toEqual(ExitCodes.UnexpectedError);
+  });
 
-test('should return success code when all filenames are valid', async () => {
-  const files = ['index.js', 'index.css'];
-  mockedGlob.mockResolvedValue(files);
-  mockedLintFiles.mockReturnValue([]);
+  test('should return success code when all filenames are valid', async () => {
+    const files = ['index.js', 'index.css'];
+    mockedGlob.mockResolvedValue(files);
+    mockedLintFiles.mockReturnValue([]);
 
-  const code = await main();
+    const code = await main();
 
-  expect(mockedLintFiles).toHaveBeenCalledTimes(1);
-  expect(mockedLintFiles).toHaveBeenCalledWith(files, format);
-  expect(code).toEqual(ExitCodes.SuccessNoLintingErrors);
-});
+    expect(mockedLintFiles).toHaveBeenCalledTimes(1);
+    expect(mockedLintFiles).toHaveBeenCalledWith(files, format);
+    expect(code).toEqual(ExitCodes.SuccessNoLintingErrors);
+  });
 
-test('should return error code when some filenames are invalid', async () => {
-  const files = ['camelCase.js', 'PascalCase.js', 'index.css'];
-  mockedGlob.mockResolvedValue(files);
-  mockedLintFiles.mockReturnValue(['lint files error']);
+  test('should return error code when some filenames are invalid', async () => {
+    const files = ['camelCase.js', 'PascalCase.js', 'index.css'];
+    mockedGlob.mockResolvedValue(files);
+    mockedLintFiles.mockReturnValue(['lint files error']);
 
-  const code = await main();
+    const code = await main();
 
-  expect(mockedLintFiles).toHaveBeenCalledTimes(1);
-  expect(mockedLintFiles).toHaveBeenCalledWith(files, format);
-  expect(code).toEqual(ExitCodes.SuccessWithLintingErrors);
+    expect(mockedLintFiles).toHaveBeenCalledTimes(1);
+    expect(mockedLintFiles).toHaveBeenCalledWith(files, format);
+    expect(code).toEqual(ExitCodes.SuccessWithLintingErrors);
+  });
 });
