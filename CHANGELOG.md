@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `pascalCase`
   * `snakeCase`
 
+### Changed
+
+* update dependencies
+
 ## [0.3.1] - 2019-12-04
 
 ### Changed

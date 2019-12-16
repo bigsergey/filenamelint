@@ -53,13 +53,13 @@
     "commander": "4.0.1",
     "fast-glob": "3.1.1",
     "kebab-case": "1.0.0",
-    "snake-case": "3.0.1"
+    "snake-case": "3.0.2"
   },
   "devDependencies": {
     "@types/jest": "24.0.23",
-    "@types/node": "12.12.15",
-    "@typescript-eslint/eslint-plugin": "2.10.0",
-    "@typescript-eslint/parser": "2.10.0",
+    "@types/node": "12.12.18",
+    "@typescript-eslint/eslint-plugin": "2.12.0",
+    "@typescript-eslint/parser": "2.12.0",
     "eslint": "6.7.2",
     "eslint-config-prettier": "6.7.0",
     "eslint-plugin-prettier": "3.1.2",
