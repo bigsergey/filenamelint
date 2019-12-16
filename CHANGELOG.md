@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   * `pascalCase`
   * `snakeCase`
 * `markdownlint` for `md` files
+* `npm audit` script to `test` script
 
 ### Changed
 

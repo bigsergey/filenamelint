@@ -18,7 +18,7 @@
     "build": "tsc -p .",
     "build:live": "tsc -w",
     "lint": "eslint \"src/**\" && markdownlint '**/*.md' --ignore node_modules",
-    "test": "jest --coverage",
+    "test": "npm audit && jest --coverage",
     "test:watch": "jest --watch"
   },
   "lint-staged": {
