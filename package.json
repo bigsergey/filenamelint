@@ -17,13 +17,17 @@
     "start": "npm run build:live",
     "build": "tsc -p .",
     "build:live": "tsc -w",
-    "lint": "eslint \"src/**\"",
+    "lint": "eslint \"src/**\" && markdownlint '**/*.md' --ignore node_modules",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
+      "git add"
+    ],
+    "*.md": [
+      "markdownlint --fix",
       "git add"
     ]
   },
@@ -66,6 +70,7 @@
     "husky": "3.1.0",
     "jest": "24.9.0",
     "lint-staged": "9.5.0",
+    "markdownlint-cli": "0.19.0",
     "prettier": "1.19.1",
     "ts-jest": "24.2.0",
     "ts-node": "8.5.4",
