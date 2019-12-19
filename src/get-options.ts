@@ -10,7 +10,7 @@ export interface Options {
   format: Formats;
 }
 
-export const defaultOptions = {
+export const defaultOptions: Options = {
   ignore: ['node_modules/**', 'coverage/**', 'README.md', 'CHANGELOG.md', 'LICENSE'],
   format: Formats.kebabCase,
 };
