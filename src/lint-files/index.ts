@@ -3,7 +3,7 @@ import lintFile from './lint-file';
 
 export default function lintFiles(files: string[], format: Formats): string[] {
   return files.flatMap(file => {
-    const lintResult = lintFile(file, format);
-    return lintResult ? [lintResult] : [];
+    const lintingError = lintFile(file, format);
+    return lintingError === null ? [] : [lintingError];
   });
 }
