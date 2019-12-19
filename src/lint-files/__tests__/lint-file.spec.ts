@@ -15,12 +15,12 @@ describe('lint file', () => {
     expect(mockedValidate).toHaveBeenCalledWith('name', Formats.kebabCase);
   });
 
-  it('should return empty string for correct filename', () => {
+  it('should return null for correct filename', () => {
     const file = 'path/to/file/name.js';
 
     mockedValidate.mockReturnValue(true);
 
-    expect(lintFile(file, Formats.kebabCase)).toEqual('');
+    expect(lintFile(file, Formats.kebabCase)).toEqual(null);
   });
 
   it('should return error message for incorrect filename', () => {
