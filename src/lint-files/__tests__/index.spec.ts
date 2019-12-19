@@ -4,7 +4,7 @@ import lintFile from '../lint-file';
 import lintFiles from '../index';
 import { Formats } from '../../get-options';
 
-const mockedLintFile = (lintFile as unknown) as jest.Mock<string>;
+const mockedLintFile = (lintFile as unknown) as jest.Mock<string | null>;
 
 describe('lint files', () => {
   afterEach(() => {
@@ -27,7 +27,7 @@ describe('lint files', () => {
   });
 
   test('should return empty array when all filenames are correct', () => {
-    mockedLintFile.mockReturnValue('');
+    mockedLintFile.mockReturnValue(null);
     const files = ['first', 'second'];
     const format = Formats.camelCase;
 

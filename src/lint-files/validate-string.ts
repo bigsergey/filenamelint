@@ -4,7 +4,7 @@ import { snakeCase } from 'snake-case';
 
 import { Formats } from '../get-options';
 
-const equals = (a: unknown) => (b: unknown): boolean => a === b;
+const equals = (a: string) => (b: string): boolean => a === b;
 
 export default function validate(string: string, format: Formats): boolean {
   const equalsToBase = equals(string);
