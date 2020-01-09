@@ -1,5 +1,4 @@
-import { Formats } from '../get-options';
-import getOptions, { defaultOptions } from '../get-options';
+import getOptions, { defaultOptions, Formats } from '../index';
 
 describe('getting options', () => {
   test('should return default options when custom options are empty', () => {

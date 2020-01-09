@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { Formats } from '../get-options';
+import { Formats } from '../options';
 import validate from './validate-string';
 
 export default function lintFile(file: string, format: Formats): string | null {

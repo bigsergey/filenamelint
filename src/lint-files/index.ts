@@ -1,4 +1,4 @@
-import { Formats } from '../get-options';
+import { Formats } from '../options';
 import lintFile from './lint-file';
 
 export default function lintFiles(files: string[], format: Formats): string[] {

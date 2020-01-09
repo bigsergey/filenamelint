@@ -9,7 +9,7 @@ import camelCase from 'camelcase';
 import { snakeCase } from 'snake-case';
 
 import validate from '../validate-string';
-import { Formats } from '../../get-options';
+import { Formats } from '../../options';
 
 const mockedKebabCase = (kebabCase as unknown) as jest.Mock<string>;
 const mockedCamelCase = (camelCase as unknown) as jest.Mock<string>;

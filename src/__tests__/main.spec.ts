@@ -1,13 +1,12 @@
 jest.mock('fast-glob');
 jest.mock('../lint-files');
-jest.mock('../get-options');
+jest.mock('../options');
 
 import glob from 'fast-glob';
 
 import lintFiles from '../lint-files';
-import getOptions, { Formats } from '../get-options';
+import getOptions, { Formats, Options } from '../options';
 import main, { ExitCodes } from '../main';
-import { Options } from '../get-options';
 
 const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
 const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;

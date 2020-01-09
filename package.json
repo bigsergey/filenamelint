@@ -14,9 +14,8 @@
     "lib/**/*"
   ],
   "scripts": {
-    "start": "npm run build:live",
+    "start": "tsc -w",
     "build": "tsc -p .",
-    "build:live": "tsc -w",
     "lint": "eslint \"src/**\" && markdownlint '**/*.md' --ignore node_modules",
     "test": "npm audit && jest --coverage",
     "test:watch": "jest --watch"

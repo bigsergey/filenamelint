@@ -1,6 +1,6 @@
 import glob from 'fast-glob';
 
-import getOptions, { Options } from './get-options';
+import getOptions, { Options } from './options';
 import lintFiles from './lint-files';
 
 export enum ExitCodes {

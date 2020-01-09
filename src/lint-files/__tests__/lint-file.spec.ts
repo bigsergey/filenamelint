@@ -2,7 +2,7 @@ jest.mock('../validate-string');
 
 import validate from '../validate-string';
 import lintFile from '../lint-file';
-import { Formats } from '../../get-options';
+import { Formats } from '../../options';
 
 const mockedValidate = (validate as unknown) as jest.Mock<boolean>;
 

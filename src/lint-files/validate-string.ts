@@ -2,7 +2,7 @@ import kebabCase from 'kebab-case';
 import camelCase from 'camelcase';
 import { snakeCase } from 'snake-case';
 
-import { Formats } from '../get-options';
+import { Formats } from '../options';
 
 const equals = (a: string) => (b: string): boolean => a === b;
 
