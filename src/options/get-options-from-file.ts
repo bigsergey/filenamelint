@@ -9,7 +9,7 @@ function isFileEmpty(content: string): boolean {
   return content.trim() === '';
 }
 
-export function getOptionsFromFile(): Partial<Options> {
+export default function getOptionsFromFile(): Partial<Options> {
   const configFilePath = path.join(process.cwd(), configFileName);
 
   if (fs.existsSync(configFilePath)) {
