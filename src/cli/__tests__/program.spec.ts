@@ -15,7 +15,7 @@ describe('program', () => {
   });
 
   test('should set version', () => {
-    expect(commander.version).toHaveBeenCalledWith('0.4.0');
+    expect(commander.version).toHaveBeenCalledWith('0.5.0');
   });
 
   test('should define --ignore-pattern flag', () => {
