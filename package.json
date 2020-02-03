@@ -21,14 +21,8 @@
     "test:watch": "jest --watch"
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.md": [
-      "markdownlint --fix",
-      "git add"
-    ]
+    "*.ts": "eslint --fix",
+    "*.md": "markdownlint --fix"
   },
   "husky": {
     "hooks": {
