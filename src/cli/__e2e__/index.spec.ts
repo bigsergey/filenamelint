@@ -38,4 +38,11 @@ describe('cli', () => {
     expect(stderr).not.toContain('LICENSE has wrong name.');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
+
+  test('should use config from `.filenamelintrc` file', async () => {
+    const { code, stderr } = await cli([], 'src-mock-with-config-file');
+
+    expect(stderr).toContain('kebab-case.js has wrong name.');
+    expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
+  });
 });
