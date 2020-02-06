@@ -10,20 +10,21 @@ export enum ExitCodes {
 }
 
 export default function main(options?: Partial<Options>): Promise<ExitCodes> {
-  const { ignore, format } = getOptions(options);
-  return glob('**/*', { ignore })
-    .then(files => {
-      const errorMessages = lintFiles(files, format);
+  return getOptions(options)
+    .then(({ ignore, format }) =>
+      glob('**/*', { ignore }).then(files => {
+        const errorMessages = lintFiles(files, format);
 
-      if (errorMessages.length > 0) {
-        errorMessages.forEach(message => console.error(message));
-        return ExitCodes.SuccessWithLintingErrors;
-      }
+        if (errorMessages.length > 0) {
+          errorMessages.forEach(message => console.error(message));
+          return ExitCodes.SuccessWithLintingErrors;
+        }
 
-      return ExitCodes.SuccessNoLintingErrors;
-    })
-    .catch(error => {
-      console.error(error);
+        return ExitCodes.SuccessNoLintingErrors;
+      }),
+    )
+    .catch(({ message } = {}) => {
+      console.log(message);
       return ExitCodes.UnexpectedError;
     });
 }

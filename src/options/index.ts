@@ -17,8 +17,8 @@ export const defaultOptions: Options = {
   format: Formats.kebabCase,
 };
 
-export default function getOptions({ ignore, format }: Partial<Options> = {}): Options {
-  const optionsFromFile = getOptionsFromFile();
+export default async function getOptions({ ignore, format }: Partial<Options> = {}): Promise<Options> {
+  const optionsFromFile = await getOptionsFromFile();
 
   return {
     ignore: ignore || optionsFromFile.ignore || defaultOptions.ignore,
