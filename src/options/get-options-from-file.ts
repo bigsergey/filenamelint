@@ -12,7 +12,7 @@ function isFileEmpty(content: string): boolean {
 export default async function getOptionsFromFile(): Promise<Partial<Options>> {
   const configFilePath = path.join(process.cwd(), configFileName);
 
-  if (fs.existsSync(configFilePath)) {
+  if (await fs.promises.stat(configFilePath)) {
     const content = await fs.promises.readFile(configFilePath, 'utf8');
 
     if (isFileEmpty(content)) {
