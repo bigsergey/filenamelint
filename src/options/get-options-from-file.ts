@@ -9,19 +9,23 @@ function isFileEmpty(content: string): boolean {
   return content.trim() === '';
 }
 
-export default function getOptionsFromFile(): Partial<Options> {
+export default async function getOptionsFromFile(): Promise<Partial<Options>> {
   const configFilePath = path.join(process.cwd(), configFileName);
 
   if (fs.existsSync(configFilePath)) {
-    const content = fs.readFileSync(configFilePath, 'utf8');
+    const content = await fs.promises.readFile(configFilePath, 'utf8');
 
     if (isFileEmpty(content)) {
       return {};
     }
 
-    const options = JSON.parse(content);
+    try {
+      const options = JSON.parse(content);
 
-    return options;
+      return options;
+    } catch ({ message }) {
+      throw new Error(`${configFileName} file has incorrect format. ${message}`);
+    }
   }
 
   return {};
