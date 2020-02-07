@@ -24,9 +24,9 @@ describe('main', () => {
   });
 
   afterEach(() => {
-    mockedGetOptions.mockReset();
-    mockedGlob.mockReset();
-    mockedLintFiles.mockReset();
+    mockedGetOptions.mockRestore();
+    mockedGlob.mockRestore();
+    mockedLintFiles.mockRestore();
   });
 
   test('should call glob with correct arguments', async () => {
