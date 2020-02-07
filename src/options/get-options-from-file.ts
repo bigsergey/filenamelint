@@ -9,10 +9,19 @@ function isFileEmpty(content: string): boolean {
   return content.trim() === '';
 }
 
+async function isFileExists(filePath: string): Promise<boolean> {
+  try {
+    await fs.promises.stat(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export default async function getOptionsFromFile(): Promise<Partial<Options>> {
   const configFilePath = path.join(process.cwd(), configFileName);
 
-  if (await fs.promises.stat(configFilePath)) {
+  if (await isFileExists(configFilePath)) {
     const content = await fs.promises.readFile(configFilePath, 'utf8');
 
     if (isFileEmpty(content)) {
