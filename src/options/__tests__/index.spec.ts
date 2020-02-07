@@ -3,7 +3,7 @@ jest.mock('../get-options-from-file');
 import getOptions, { defaultOptions, Formats, Options } from '../index';
 import getOptionsFromFile from '../get-options-from-file';
 
-describe('getting options', () => {
+describe.skip('getting options', () => {
   const mockedGetOptionsFromFile = (getOptionsFromFile as unknown) as jest.Mock<Promise<Partial<Options>>>;
 
   afterEach(() => {

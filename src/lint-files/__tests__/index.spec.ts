@@ -6,7 +6,7 @@ import { Formats } from '../../options';
 
 const mockedLintFile = (lintFile as unknown) as jest.Mock<string | null>;
 
-describe('lint files', () => {
+describe.skip('lint files', () => {
   afterEach(() => {
     mockedLintFile.mockReset();
   });

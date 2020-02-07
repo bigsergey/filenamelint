@@ -1,7 +1,7 @@
 import { ExitCodes } from '../../main';
 import cli from './run-cli';
 
-describe('cli', () => {
+describe.skip('cli', () => {
   test('should return correct program version', async () => {
     const { code, stdout } = await cli(['--version'], 'src-mock');
 

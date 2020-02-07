@@ -3,7 +3,7 @@ import path from 'path';
 
 import getOptionsFromFile from '../get-options-from-file';
 
-describe('getting options from file', () => {
+describe.skip('getting options from file', () => {
   const statSpy = jest.spyOn(fs.promises, 'stat');
   const readFileSpy = jest.spyOn(fs.promises, 'readFile');
 
