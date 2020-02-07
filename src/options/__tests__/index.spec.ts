@@ -7,7 +7,7 @@ describe('getting options', () => {
   const mockedGetOptionsFromFile = (getOptionsFromFile as unknown) as jest.Mock<Promise<Partial<Options>>>;
 
   afterEach(() => {
-    mockedGetOptionsFromFile.mockReset();
+    mockedGetOptionsFromFile.mockRestore();
   });
 
   describe('default options', () => {
