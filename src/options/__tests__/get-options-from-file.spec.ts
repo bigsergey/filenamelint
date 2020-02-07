@@ -3,13 +3,18 @@ import path from 'path';
 
 import getOptionsFromFile from '../get-options-from-file';
 
-describe.skip('getting options from file', () => {
+describe('getting options from file', () => {
   const statSpy = jest.spyOn(fs.promises, 'stat');
   const readFileSpy = jest.spyOn(fs.promises, 'readFile');
 
   afterEach(() => {
     statSpy.mockReset();
     readFileSpy.mockReset();
+  });
+
+  afterAll(() => {
+    statSpy.mockRestore();
+    readFileSpy.mockRestore();
   });
 
   test('should check if config file is in correct path', async () => {
@@ -27,8 +32,8 @@ describe.skip('getting options from file', () => {
     expect(joinSpy).toHaveBeenCalledWith('cwd-path', '.filenamelintrc');
     expect(statSpy).toHaveBeenCalledWith('config-file-path');
 
-    cwdSpy.mockReset();
-    joinSpy.mockReset();
+    cwdSpy.mockRestore();
+    joinSpy.mockRestore();
   });
 
   test('should return empty object when config file does not exist', async () => {
