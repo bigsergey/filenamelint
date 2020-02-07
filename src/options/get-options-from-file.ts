@@ -27,7 +27,6 @@ export default async function getOptionsFromFile(): Promise<Partial<Options>> {
     if (isFileEmpty(content)) {
       return {};
     }
-
     try {
       const options = JSON.parse(content);
 

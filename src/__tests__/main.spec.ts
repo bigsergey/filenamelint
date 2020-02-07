@@ -24,9 +24,9 @@ describe('main', () => {
   });
 
   afterEach(() => {
-    mockedGetOptions.mockRestore();
-    mockedGlob.mockRestore();
-    mockedLintFiles.mockRestore();
+    mockedGetOptions.mockReset();
+    mockedGlob.mockReset();
+    mockedLintFiles.mockReset();
   });
 
   test('should call glob with correct arguments', async () => {
@@ -44,6 +44,19 @@ describe('main', () => {
     mockedGlob.mockRejectedValue(new Error('Test error'));
 
     expect(await main()).toEqual(ExitCodes.UnexpectedError);
+  });
+
+  test('should return error code when getting options fails', async () => {
+    const logSpy = jest.spyOn(console, 'log');
+
+    mockedGetOptions.mockRejectedValue(new Error('Test error'));
+
+    const code = await main();
+
+    expect(mockedGlob).not.toHaveBeenCalled();
+    expect(mockedLintFiles).not.toHaveBeenCalled();
+    expect(logSpy).toHaveBeenCalledWith('Test error');
+    expect(code).toEqual(ExitCodes.UnexpectedError);
   });
 
   test('should return success code when all filenames are valid', async () => {
