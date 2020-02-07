@@ -8,27 +8,27 @@ import lintFiles from '../lint-files';
 import getOptions, { Formats, Options } from '../options';
 import main, { ExitCodes } from '../main';
 
-const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
-const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
-const mockedGetOptions = (getOptions as unknown) as jest.Mock<Options>;
-
-const ignore = ['ignore'];
-const format = Formats.kebabCase;
-const mockedOptions = { ignore, format };
-
-beforeEach(() => {
-  mockedGetOptions.mockReturnValue(mockedOptions);
-  mockedGlob.mockResolvedValue([]);
-  mockedLintFiles.mockReturnValue([]);
-});
-
-afterEach(() => {
-  mockedGetOptions.mockRestore();
-  mockedGlob.mockRestore();
-  mockedLintFiles.mockRestore();
-});
-
 describe('main', () => {
+  const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
+  const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
+  const mockedGetOptions = (getOptions as unknown) as jest.Mock<Promise<Options>>;
+
+  const ignore = ['ignore'];
+  const format = Formats.kebabCase;
+  const mockedOptions = { ignore, format };
+
+  beforeEach(() => {
+    mockedGetOptions.mockResolvedValue(mockedOptions);
+    mockedGlob.mockResolvedValue([]);
+    mockedLintFiles.mockReturnValue([]);
+  });
+
+  afterEach(() => {
+    mockedGetOptions.mockRestore();
+    mockedGlob.mockRestore();
+    mockedLintFiles.mockRestore();
+  });
+
   test('should call glob with correct arguments', async () => {
     await main();
 
