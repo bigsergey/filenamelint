@@ -11,7 +11,9 @@ describe('getting options from file', () => {
 
     cwdSpy.mockReturnValue('cwd-path');
     joinSpy.mockReturnValue('config-file-path');
-    statSpy.mockResolvedValue((false as unknown) as Stats);
+    statSpy.mockImplementation(() => {
+      throw new Error();
+    });
 
     await getOptionsFromFile();
 
@@ -26,7 +28,9 @@ describe('getting options from file', () => {
   test('should return empty object when config file does not exist', async () => {
     const statSpy = jest.spyOn(fs.promises, 'stat');
 
-    statSpy.mockResolvedValue((false as unknown) as Stats);
+    statSpy.mockImplementation(() => {
+      throw new Error();
+    });
 
     expect(await getOptionsFromFile()).toEqual({});
 
@@ -34,29 +38,29 @@ describe('getting options from file', () => {
   });
 
   test('should return empty object when config file is empty', async () => {
-    const existsSyncSpy = jest.spyOn(fs, 'existsSync');
+    const statSpy = jest.spyOn(fs.promises, 'stat');
     const readFileSpy = jest.spyOn(fs.promises, 'readFile');
 
-    existsSyncSpy.mockReturnValue(true);
+    statSpy.mockResolvedValue((true as unknown) as Stats);
     readFileSpy.mockResolvedValue('');
 
     expect(await getOptionsFromFile()).toEqual({});
 
-    existsSyncSpy.mockRestore();
+    statSpy.mockRestore();
     readFileSpy.mockRestore();
   });
 
   test('should return options', async () => {
     const options = { foo: 'bar' };
-    const existsSyncSpy = jest.spyOn(fs, 'existsSync');
+    const statSpy = jest.spyOn(fs.promises, 'stat');
     const readFileSpy = jest.spyOn(fs.promises, 'readFile');
 
-    existsSyncSpy.mockReturnValue(true);
+    statSpy.mockResolvedValue((true as unknown) as Stats);
     readFileSpy.mockResolvedValue(JSON.stringify(options));
 
     expect(await getOptionsFromFile()).toEqual(options);
 
-    existsSyncSpy.mockRestore();
+    statSpy.mockRestore();
     readFileSpy.mockRestore();
   });
 });
