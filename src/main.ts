@@ -23,8 +23,8 @@ export default function main(options?: Partial<Options>): Promise<ExitCodes> {
         return ExitCodes.SuccessNoLintingErrors;
       }),
     )
-    .catch(({ message } = {}) => {
-      console.log(message);
+    .catch(error => {
+      console.log(error.message);
       return ExitCodes.UnexpectedError;
     });
 }

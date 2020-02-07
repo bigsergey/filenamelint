@@ -8,7 +8,7 @@ const mockedLintFile = (lintFile as unknown) as jest.Mock<string | null>;
 
 describe('lint files', () => {
   afterEach(() => {
-    mockedLintFile.mockClear();
+    mockedLintFile.mockReset();
   });
 
   test('should return empty array for empty input', () => {

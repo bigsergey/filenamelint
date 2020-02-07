@@ -11,15 +11,15 @@ import { snakeCase } from 'snake-case';
 import validate from '../validate-string';
 import { Formats } from '../../options';
 
-const mockedKebabCase = (kebabCase as unknown) as jest.Mock<string>;
-const mockedCamelCase = (camelCase as unknown) as jest.Mock<string>;
-const mockedSnakeCase = (snakeCase as unknown) as jest.Mock<string>;
-
 describe('validate string', () => {
+  const mockedKebabCase = (kebabCase as unknown) as jest.Mock<string>;
+  const mockedCamelCase = (camelCase as unknown) as jest.Mock<string>;
+  const mockedSnakeCase = (snakeCase as unknown) as jest.Mock<string>;
+
   afterEach(() => {
-    mockedKebabCase.mockClear();
-    mockedCamelCase.mockClear();
-    mockedSnakeCase.mockClear();
+    mockedKebabCase.mockReset();
+    mockedCamelCase.mockReset();
+    mockedSnakeCase.mockReset();
   });
 
   it('should throw for unsupported format', () => {
