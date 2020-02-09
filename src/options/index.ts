@@ -17,11 +17,13 @@ export const defaultOptions: Options = {
   format: Formats.kebabCase,
 };
 
-export default async function getOptions({ ignore, format }: Partial<Options> = {}): Promise<Options> {
+export default async function getOptions(cliOptions: Partial<Options> = {}): Promise<Options> {
   const optionsFromFile = await getOptionsFromFile();
+  const globalIgnore = cliOptions.ignore || optionsFromFile.ignore || defaultOptions.ignore;
+  const globalFormat = cliOptions.format || optionsFromFile.format || defaultOptions.format;
 
   return {
-    ignore: ignore || optionsFromFile.ignore || defaultOptions.ignore,
-    format: format || optionsFromFile.format || defaultOptions.format,
+    ignore: globalIgnore,
+    format: globalFormat,
   };
 }
