@@ -1,35 +1,34 @@
 jest.mock('fast-glob');
 jest.mock('../lint-files');
-jest.mock('../get-options');
+jest.mock('../options');
 
 import glob from 'fast-glob';
 
 import lintFiles from '../lint-files';
-import getOptions, { Formats } from '../get-options';
+import getOptions, { Formats, Options } from '../options';
 import main, { ExitCodes } from '../main';
-import { Options } from '../get-options';
-
-const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
-const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
-const mockedGetOptions = (getOptions as unknown) as jest.Mock<Options>;
-
-const ignore = ['ignore'];
-const format = Formats.kebabCase;
-const mockedOptions = { ignore, format };
-
-beforeEach(() => {
-  mockedGetOptions.mockReturnValue(mockedOptions);
-  mockedGlob.mockResolvedValue([]);
-  mockedLintFiles.mockReturnValue([]);
-});
-
-afterEach(() => {
-  mockedGetOptions.mockRestore();
-  mockedGlob.mockRestore();
-  mockedLintFiles.mockRestore();
-});
 
 describe('main', () => {
+  const mockedGlob = (glob as unknown) as jest.Mock<Promise<string[]>>;
+  const mockedLintFiles = (lintFiles as unknown) as jest.Mock<string[]>;
+  const mockedGetOptions = (getOptions as unknown) as jest.Mock<Promise<Options>>;
+
+  const ignore = ['ignore'];
+  const format = Formats.kebabCase;
+  const mockedOptions = { ignore, format };
+
+  beforeEach(() => {
+    mockedGetOptions.mockResolvedValue(mockedOptions);
+    mockedGlob.mockResolvedValue([]);
+    mockedLintFiles.mockReturnValue([]);
+  });
+
+  afterEach(() => {
+    mockedGetOptions.mockRestore();
+    mockedGlob.mockRestore();
+    mockedLintFiles.mockRestore();
+  });
+
   test('should call glob with correct arguments', async () => {
     await main();
 
@@ -45,6 +44,19 @@ describe('main', () => {
     mockedGlob.mockRejectedValue(new Error('Test error'));
 
     expect(await main()).toEqual(ExitCodes.UnexpectedError);
+  });
+
+  test('should return error code when getting options fails', async () => {
+    const logSpy = jest.spyOn(console, 'log');
+
+    mockedGetOptions.mockRejectedValue(new Error('Test error'));
+
+    const code = await main();
+
+    expect(mockedGlob).not.toHaveBeenCalled();
+    expect(mockedLintFiles).not.toHaveBeenCalled();
+    expect(logSpy).toHaveBeenCalledWith('Test error');
+    expect(code).toEqual(ExitCodes.UnexpectedError);
   });
 
   test('should return success code when all filenames are valid', async () => {

@@ -5,7 +5,7 @@ describe('cli', () => {
   test('should return correct program version', async () => {
     const { code, stdout } = await cli(['--version'], 'src-mock');
 
-    expect(stdout).toContain('0.4.0');
+    expect(stdout).toContain('0.5.0');
     expect(code).toBe(ExitCodes.SuccessNoLintingErrors);
   });
 
@@ -36,6 +36,13 @@ describe('cli', () => {
     expect(stderr).toContain('README.md has wrong name.');
     expect(stderr).not.toContain('node_modules/wrongName.js has wrong name.');
     expect(stderr).not.toContain('LICENSE has wrong name.');
+    expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
+  });
+
+  test('should use config from `.filenamelintrc` file', async () => {
+    const { code, stderr } = await cli([], 'src-mock-with-config-file');
+
+    expect(stderr).toContain('kebab-case.js has wrong name.');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
 });

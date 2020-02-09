@@ -9,13 +9,14 @@ import programOptions from '../program';
 import collect from '../collect';
 
 const mockedCommanderOption = (commander.option as unknown) as jest.Mock<Command['option']>;
+
 describe('program', () => {
   test('should export correct option object', () => {
     expect(programOptions).toEqual({ ignore: undefined, format: undefined });
   });
 
   test('should set version', () => {
-    expect(commander.version).toHaveBeenCalledWith('0.4.0');
+    expect(commander.version).toHaveBeenCalledWith('0.5.0');
   });
 
   test('should define --ignore-pattern flag', () => {

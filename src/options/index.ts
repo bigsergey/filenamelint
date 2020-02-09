@@ -1,3 +1,5 @@
+import getOptionsFromFile from './get-options-from-file';
+
 export enum Formats {
   kebabCase = 'kebabCase',
   camelCase = 'camelCase',
@@ -15,9 +17,11 @@ export const defaultOptions: Options = {
   format: Formats.kebabCase,
 };
 
-export default function getOptions({ ignore, format }: Partial<Options> = {}): Options {
+export default async function getOptions({ ignore, format }: Partial<Options> = {}): Promise<Options> {
+  const optionsFromFile = await getOptionsFromFile();
+
   return {
-    ignore: ignore || defaultOptions.ignore,
-    format: format || defaultOptions.format,
+    ignore: ignore || optionsFromFile.ignore || defaultOptions.ignore,
+    format: format || optionsFromFile.format || defaultOptions.format,
   };
 }
