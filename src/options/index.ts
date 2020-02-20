@@ -14,6 +14,17 @@ export interface Options {
   overrides: Overrides;
 }
 
+interface FilesConfig {
+  files: string[];
+}
+
+export type Override = FilesConfig & Partial<Options>;
+
+export interface Overrides {
+  [index: number]: Override;
+  length: number;
+}
+
 export const defaultOptions: Options = {
   ignore: ['node_modules/**', 'coverage/**', 'README.md', 'CHANGELOG.md', 'LICENSE'],
   format: Formats.kebabCase,
