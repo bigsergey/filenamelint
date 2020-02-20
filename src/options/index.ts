@@ -1,3 +1,4 @@
+import { Overrides } from './overrides';
 import getOptionsFromFile from './get-options-from-file';
 
 export enum Formats {
@@ -10,20 +11,21 @@ export enum Formats {
 export interface Options {
   ignore: string[];
   format: Formats;
+  overrides: Overrides;
 }
 
 export const defaultOptions: Options = {
   ignore: ['node_modules/**', 'coverage/**', 'README.md', 'CHANGELOG.md', 'LICENSE'],
   format: Formats.kebabCase,
+  overrides: [],
 };
 
 export default async function getOptions(cliOptions: Partial<Options> = {}): Promise<Options> {
   const optionsFromFile = await getOptionsFromFile();
-  const globalIgnore = cliOptions.ignore || optionsFromFile.ignore || defaultOptions.ignore;
-  const globalFormat = cliOptions.format || optionsFromFile.format || defaultOptions.format;
 
   return {
-    ignore: globalIgnore,
-    format: globalFormat,
+    ignore: cliOptions.ignore || optionsFromFile.ignore || defaultOptions.ignore,
+    format: cliOptions.format || optionsFromFile.format || defaultOptions.format,
+    overrides: optionsFromFile.overrides || defaultOptions.overrides,
   };
 }
