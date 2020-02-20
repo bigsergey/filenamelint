@@ -1,4 +1,5 @@
-import { Overrides } from './overrides';
+import { Pattern } from 'fast-glob/out/types';
+
 import getOptionsFromFile from './get-options-from-file';
 
 export enum Formats {
@@ -8,21 +9,20 @@ export enum Formats {
   snakeCase = 'snakeCase',
 }
 
+type Patterns = Pattern[];
+
+type Override = {
+  files: Pattern | Pattern[];
+  ignore?: Patterns;
+  format: Formats;
+};
+
+export type Overrides = Override[];
+
 export interface Options {
-  ignore: string[];
+  ignore: Patterns;
   format: Formats;
   overrides: Overrides;
-}
-
-interface FilesConfig {
-  files: string[];
-}
-
-export type Override = FilesConfig & Partial<Options>;
-
-export interface Overrides {
-  [index: number]: Override;
-  length: number;
 }
 
 export const defaultOptions: Options = {
