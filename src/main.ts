@@ -14,13 +14,17 @@ export default function main(options?: Partial<Options>): Promise<ExitCodes> {
   return getOptions(options)
     .then(getSources)
     .then(async sources => {
-      const promises = sources.map(async ({ files, ignore, format }) => {
-        return lintFiles(await glob(files, { ignore }), format);
-      });
+      const errorMessages = (
+        await Promise.all(
+          sources.map(async ({ files, ignore, format }) => {
+            return lintFiles(await glob(files, { ignore }), format);
+          }),
+        )
+      )
+        .flat()
+        .reduce((acc, { file, error }) => acc.set(file, error), new Map());
 
-      const errorMessages = await Promise.all(promises);
-
-      if (errorMessages.length > 0) {
+      if (errorMessages.size > 0) {
         errorMessages.forEach(message => console.error(message));
         return ExitCodes.SuccessWithLintingErrors;
       }

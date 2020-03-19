@@ -8,5 +8,5 @@ export default function lintFile(file: string, format: Formats): string | null {
   const basename = path.basename(file, extensionName);
   const isValid = validate(basename, format);
 
-  return isValid ? null : `${file} has wrong name.`;
+  return isValid ? null : `${file} has wrong name ('${format}' is expected).`;
 }

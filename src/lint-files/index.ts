@@ -1,9 +1,14 @@
 import { Formats } from '../options';
 import lintFile from './lint-file';
 
-export default function lintFiles(files: string[], format: Formats): string[] {
+interface LintingErrorEntry {
+  file: string;
+  error: string;
+}
+
+export default function lintFiles(files: string[], format: Formats): LintingErrorEntry[] {
   return files.flatMap(file => {
-    const lintingError = lintFile(file, format);
-    return lintingError === null ? [] : [lintingError];
+    const error = lintFile(file, format);
+    return error === null ? [] : [{ file, error }];
   });
 }
