@@ -47,7 +47,7 @@
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
   "dependencies": {
     "camelcase": "5.3.1",
-    "commander": "5.0.0",
+    "commander": "4.1.1",
     "fast-glob": "3.2.2",
     "kebab-case": "1.0.0",
     "snake-case": "3.0.3"
