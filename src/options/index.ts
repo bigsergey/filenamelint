@@ -9,7 +9,7 @@ export enum Formats {
   snakeCase = 'snakeCase',
 }
 
-type Patterns = Pattern[];
+export type Patterns = Pattern[];
 
 type Override = {
   files: Pattern | Pattern[];
