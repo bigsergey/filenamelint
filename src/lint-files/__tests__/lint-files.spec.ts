@@ -1,14 +1,14 @@
 jest.mock('../lint-file');
 
+import { Formats } from '../../options';
 import lintFile from '../lint-file';
 import lintFiles from '../lint-files';
-import { Formats } from '../../options';
 
 const mockedLintFile = (lintFile as unknown) as jest.Mock<string | null>;
 
 describe('lint files', () => {
   afterEach(() => {
-    mockedLintFile.mockReset();
+    mockedLintFile.mockRestore();
   });
 
   test('should return empty array for empty input', () => {

@@ -1,7 +1,7 @@
 import { Patterns, Formats } from '../options';
 import lintFile from './lint-file';
 
-interface LintingError {
+export interface LintingError {
   file: string;
   error: string;
 }
