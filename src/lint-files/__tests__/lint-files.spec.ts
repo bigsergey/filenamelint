@@ -1,7 +1,7 @@
 jest.mock('../lint-file');
 
 import lintFile from '../lint-file';
-import lintFiles from '../index';
+import lintFiles from '../lint-files';
 import { Formats } from '../../options';
 
 const mockedLintFile = (lintFile as unknown) as jest.Mock<string | null>;
@@ -12,7 +12,7 @@ describe('lint files', () => {
   });
 
   test('should return empty array for empty input', () => {
-    expect(lintFiles([], Formats.camelCase)).toEqual([]);
+    expect(lintFiles({ files: [], format: Formats.camelCase })).toEqual([]);
     expect(mockedLintFile).toHaveBeenCalledTimes(0);
   });
 
@@ -20,7 +20,7 @@ describe('lint files', () => {
     const files = ['first', 'second'];
     const format = Formats.camelCase;
 
-    lintFiles(files, format);
+    lintFiles({ files, format });
 
     expect(mockedLintFile).toHaveBeenNthCalledWith(1, files[0], format);
     expect(mockedLintFile).toHaveBeenNthCalledWith(2, files[1], format);
@@ -31,7 +31,7 @@ describe('lint files', () => {
     const files = ['first', 'second'];
     const format = Formats.camelCase;
 
-    expect(lintFiles(files, format)).toEqual([]);
+    expect(lintFiles({ files, format })).toEqual([]);
   });
 
   test('should return array with error messages', () => {
@@ -39,6 +39,9 @@ describe('lint files', () => {
     const files = ['first', 'second'];
     const format = Formats.camelCase;
 
-    expect(lintFiles(files, format)).toEqual(['error', 'error']);
+    expect(lintFiles({ files, format })).toEqual([
+      { file: 'first', error: 'error' },
+      { file: 'second', error: 'error' },
+    ]);
   });
 });
