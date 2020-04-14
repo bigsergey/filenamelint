@@ -19,10 +19,10 @@ describe('cli', () => {
   test('should return linting errors except LICENSE file', async () => {
     const { code, stderr } = await cli(['--ignore-pattern', 'LICENSE'], 'src-mock');
 
-    expect(stderr).toContain('CHANGELOG.md has wrong name.');
-    expect(stderr).toContain('README.md has wrong name.');
-    expect(stderr).toContain('node_modules/wrongName.js has wrong name.');
-    expect(stderr).not.toContain('LICENSE has wrong name.');
+    expect(stderr).toContain('CHANGELOG.md');
+    expect(stderr).toContain('README.md');
+    expect(stderr).toContain('node_modules/wrongName.js');
+    expect(stderr).not.toContain('LICENSE');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
 
@@ -32,17 +32,17 @@ describe('cli', () => {
       'src-mock',
     );
 
-    expect(stderr).toContain('CHANGELOG.md has wrong name.');
-    expect(stderr).toContain('README.md has wrong name.');
-    expect(stderr).not.toContain('node_modules/wrongName.js has wrong name.');
-    expect(stderr).not.toContain('LICENSE has wrong name.');
+    expect(stderr).toContain('CHANGELOG.md');
+    expect(stderr).toContain('README.md');
+    expect(stderr).not.toContain('node_modules/wrongName.js');
+    expect(stderr).not.toContain('LICENSE');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
 
   test('should use config from `.filenamelintrc` file', async () => {
     const { code, stderr } = await cli([], 'src-mock-with-config-file');
 
-    expect(stderr).toContain('kebab-case.js has wrong name.');
+    expect(stderr).toContain('kebab-case.js');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
 });

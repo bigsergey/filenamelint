@@ -1,6 +1,6 @@
 import getOptions, { Options } from './options';
-import lintSources from './lint-files';
 import getSources from './get-sources';
+import lintSources from './lint-sources';
 
 export enum ExitCodes {
   SuccessNoLintingErrors = 0,
@@ -21,7 +21,7 @@ export default function main(options?: Partial<Options>): Promise<ExitCodes> {
       return ExitCodes.SuccessNoLintingErrors;
     })
     .catch(error => {
-      console.log(error.message);
+      console.error(error);
       return ExitCodes.UnexpectedError;
     });
 }
