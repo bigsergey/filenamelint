@@ -47,9 +47,14 @@ describe('cli', () => {
   });
 
   describe('overrides', () => {
-    test('should return correct status', async () => {
-      const { code } = await cli([], 'src-mock-with-overrides');
+    test('should apply overrides to appropriate folders', async () => {
+      const { code, stderr } = await cli([], 'src-mock-with-overrides');
 
+      expect(stderr).toContain('kebab-case.js');
+      expect(stderr).not.toContain('camelFile.js');
+      expect(stderr).not.toContain('kebab-file.js');
+      expect(stderr).not.toContain('PascalFile.js');
+      expect(stderr).not.toContain('snake_file.js');
       expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
     });
   });
