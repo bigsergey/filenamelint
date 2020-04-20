@@ -12,15 +12,15 @@ export default function main(options?: Partial<Options>): Promise<ExitCodes> {
   return getOptions(options)
     .then(getSources)
     .then(lintSources)
-    .then(errorMessages => {
+    .then((errorMessages) => {
       if (errorMessages.size > 0) {
-        errorMessages.forEach(message => console.error(message));
+        errorMessages.forEach((message) => console.error(message));
         return ExitCodes.SuccessWithLintingErrors;
       }
 
       return ExitCodes.SuccessNoLintingErrors;
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
       return ExitCodes.UnexpectedError;
     });

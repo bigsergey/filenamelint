@@ -7,7 +7,7 @@ export interface LintingError {
 }
 
 export default function lintFiles({ files, format }: { files: Patterns; format: Formats }): LintingError[] {
-  return files.flatMap(file => {
+  return files.flatMap((file) => {
     const error = lintFile(file, format);
     return error === null ? [] : [{ file, error }];
   });

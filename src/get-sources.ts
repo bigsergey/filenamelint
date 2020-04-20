@@ -14,7 +14,7 @@ export default async function getSources({
         ignore,
         format,
       },
-      ...overrides.map(override => ({
+      ...overrides.map((override) => ({
         format,
         ...override,
       })),

@@ -8,7 +8,7 @@ interface CLIRunResult {
 }
 
 export default function cli(args: string[], cwd = ''): Promise<CLIRunResult> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const cliScript = path.resolve(__dirname, '..', 'index.ts');
     const cwdPath = path.join(__dirname, cwd);
 
