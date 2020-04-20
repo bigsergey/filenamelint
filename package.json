@@ -48,7 +48,7 @@
   "dependencies": {
     "camelcase": "6.0.0",
     "chalk": "4.0.0",
-    "commander": "4.1.1",
+    "commander": "5.0.0",
     "fast-glob": "3.2.2",
     "kebab-case": "1.0.0",
     "snake-case": "3.0.3"
