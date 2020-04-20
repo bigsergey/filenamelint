@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * support for `overrides` option in `.filenamelintrc` config file
 
+### Changed
+
+* upgrade dependencies
+
 ## [0.5.0] - 2020-01-24
 
 ### Added
