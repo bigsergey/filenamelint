@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "node_modules/**",
+    "coverage/**",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "lib/**",
+    "**/__e2e__/src-mock(-*)?/**"
+  ]
+}
