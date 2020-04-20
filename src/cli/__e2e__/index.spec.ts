@@ -45,4 +45,12 @@ describe('cli', () => {
     expect(stderr).toContain('kebab-case.js');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
+
+  describe('overrides', () => {
+    test('should return correct status', async () => {
+      const { code } = await cli([], 'src-mock-with-overrides');
+
+      expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
+    });
+  });
 });
