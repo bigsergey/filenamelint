@@ -1,23 +1,23 @@
-jest.mock('../lint-files');
+jest.mock('../lint-file');
 
 import { Formats } from '../../options';
-import lintFiles, { LintingError } from '../lint-files';
+import lintFile from '../lint-file';
 import lintSources from '../index';
 
-const mockedLintFiles = (lintFiles as unknown) as jest.Mock<LintingError[]>;
+const mockedLintFile = (lintFile as unknown) as jest.Mock<string | null>;
 
 describe('lint sources', () => {
   afterEach(() => {
-    mockedLintFiles.mockRestore();
+    mockedLintFile.mockRestore();
   });
 
   test('should return empty map for empty input', () => {
     expect(lintSources([])).toEqual(new Map());
-    expect(mockedLintFiles).toHaveBeenCalledTimes(0);
+    expect(mockedLintFile).toHaveBeenCalledTimes(0);
   });
 
   test('should return empty map when filenames are correct', () => {
-    mockedLintFiles.mockReturnValue([]);
+    mockedLintFile.mockReturnValue(null);
     const sources = [
       {
         files: ['first'],
@@ -30,9 +30,10 @@ describe('lint sources', () => {
     ];
 
     expect(lintSources(sources)).toEqual(new Map());
-    expect(mockedLintFiles).toHaveBeenCalledTimes(2);
-    expect(mockedLintFiles.mock.calls[0][0]).toEqual(sources[0]);
-    expect(mockedLintFiles.mock.calls[1][0]).toEqual(sources[1]);
+    expect(mockedLintFile).toHaveBeenCalledTimes(3);
+    expect(mockedLintFile).toHaveBeenNthCalledWith(1, 'first', Formats.camelCase);
+    expect(mockedLintFile).toHaveBeenNthCalledWith(2, 'second', Formats.kebabCase);
+    expect(mockedLintFile).toHaveBeenNthCalledWith(3, 'third', Formats.kebabCase);
   });
 
   test('should return map with errors', () => {
@@ -47,19 +48,10 @@ describe('lint sources', () => {
       },
     ];
 
-    mockedLintFiles
-      .mockReturnValueOnce([
-        {
-          file: 'first',
-          error: 'first filename error',
-        },
-      ])
-      .mockReturnValueOnce([
-        {
-          file: 'third',
-          error: 'third filename error',
-        },
-      ]);
+    mockedLintFile
+      .mockReturnValueOnce('first filename error')
+      .mockReturnValueOnce(null)
+      .mockReturnValueOnce('third filename error');
 
     expect(lintSources(sources)).toEqual(
       new Map([
@@ -67,9 +59,7 @@ describe('lint sources', () => {
         ['third', 'third filename error'],
       ]),
     );
-    expect(mockedLintFiles).toHaveBeenCalledTimes(2);
-    expect(mockedLintFiles.mock.calls[0][0]).toEqual(sources[0]);
-    expect(mockedLintFiles.mock.calls[1][0]).toEqual(sources[1]);
+    expect(mockedLintFile).toHaveBeenCalledTimes(3);
   });
 
   test('should return error from last override for same file', () => {
@@ -84,23 +74,30 @@ describe('lint sources', () => {
       },
     ];
 
-    mockedLintFiles
-      .mockReturnValueOnce([
-        {
-          file: 'first',
-          error: 'first filename error',
-        },
-      ])
-      .mockReturnValueOnce([
-        {
-          file: 'first',
-          error: 'first filename overridden error',
-        },
-      ]);
+    mockedLintFile
+      .mockReturnValueOnce('first filename error')
+      .mockReturnValueOnce(null)
+      .mockReturnValueOnce('first filename overridden error');
 
     expect(lintSources(sources)).toEqual(new Map([['first', 'first filename overridden error']]));
-    expect(mockedLintFiles).toHaveBeenCalledTimes(2);
-    expect(mockedLintFiles.mock.calls[0][0]).toEqual(sources[0]);
-    expect(mockedLintFiles.mock.calls[1][0]).toEqual(sources[1]);
+    expect(mockedLintFile).toHaveBeenCalledTimes(3);
+  });
+
+  test('should return no error when last override does not return error', () => {
+    const sources = [
+      {
+        files: ['first'],
+        format: Formats.camelCase,
+      },
+      {
+        files: ['first'],
+        format: Formats.kebabCase,
+      },
+    ];
+
+    mockedLintFile.mockReturnValueOnce('first filename error').mockReturnValueOnce(null);
+
+    expect(lintSources(sources)).toEqual(new Map());
+    expect(mockedLintFile).toHaveBeenCalledTimes(2);
   });
 });
