@@ -1,3 +1,5 @@
+import { Pattern } from 'fast-glob/out/types';
+
 import getOptionsFromFile from './get-options-from-file';
 
 export enum Formats {
@@ -7,21 +9,34 @@ export enum Formats {
   snakeCase = 'snakeCase',
 }
 
-export interface Options {
-  ignore: string[];
+export type Patterns = Pattern[];
+
+type Override = {
+  files: Pattern | Pattern[];
+  ignore?: Patterns;
   format: Formats;
+};
+
+export type Overrides = Override[];
+
+export interface Options {
+  ignore: Patterns;
+  format: Formats;
+  overrides: Overrides;
 }
 
 export const defaultOptions: Options = {
   ignore: ['node_modules/**', 'coverage/**', 'README.md', 'CHANGELOG.md', 'LICENSE'],
   format: Formats.kebabCase,
+  overrides: [],
 };
 
-export default async function getOptions({ ignore, format }: Partial<Options> = {}): Promise<Options> {
+export default async function getOptions(cliOptions: Partial<Options> = {}): Promise<Options> {
   const optionsFromFile = await getOptionsFromFile();
 
   return {
-    ignore: ignore || optionsFromFile.ignore || defaultOptions.ignore,
-    format: format || optionsFromFile.format || defaultOptions.format,
+    ignore: cliOptions.ignore || optionsFromFile.ignore || defaultOptions.ignore,
+    format: cliOptions.format || optionsFromFile.format || defaultOptions.format,
+    overrides: optionsFromFile.overrides || defaultOptions.overrides,
   };
 }

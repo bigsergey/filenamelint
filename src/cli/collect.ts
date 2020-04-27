@@ -1,3 +1,3 @@
-export default function collect<T>(value: T, previous: T[] = []): T[] {
+export default function collect(value: string, previous: string[] = []): string[] {
   return previous.concat(value);
 }

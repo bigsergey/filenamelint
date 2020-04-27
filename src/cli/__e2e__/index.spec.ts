@@ -5,7 +5,7 @@ describe('cli', () => {
   test('should return correct program version', async () => {
     const { code, stdout } = await cli(['--version'], 'src-mock');
 
-    expect(stdout).toContain('0.5.0');
+    expect(stdout).toContain('0.6.0');
     expect(code).toBe(ExitCodes.SuccessNoLintingErrors);
   });
 
@@ -19,10 +19,10 @@ describe('cli', () => {
   test('should return linting errors except LICENSE file', async () => {
     const { code, stderr } = await cli(['--ignore-pattern', 'LICENSE'], 'src-mock');
 
-    expect(stderr).toContain('CHANGELOG.md has wrong name.');
-    expect(stderr).toContain('README.md has wrong name.');
-    expect(stderr).toContain('node_modules/wrongName.js has wrong name.');
-    expect(stderr).not.toContain('LICENSE has wrong name.');
+    expect(stderr).toContain('CHANGELOG.md');
+    expect(stderr).toContain('README.md');
+    expect(stderr).toContain('node_modules/wrongName.js');
+    expect(stderr).not.toContain('LICENSE');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
 
@@ -32,17 +32,30 @@ describe('cli', () => {
       'src-mock',
     );
 
-    expect(stderr).toContain('CHANGELOG.md has wrong name.');
-    expect(stderr).toContain('README.md has wrong name.');
-    expect(stderr).not.toContain('node_modules/wrongName.js has wrong name.');
-    expect(stderr).not.toContain('LICENSE has wrong name.');
+    expect(stderr).toContain('CHANGELOG.md');
+    expect(stderr).toContain('README.md');
+    expect(stderr).not.toContain('node_modules/wrongName.js');
+    expect(stderr).not.toContain('LICENSE');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
   });
 
   test('should use config from `.filenamelintrc` file', async () => {
     const { code, stderr } = await cli([], 'src-mock-with-config-file');
 
-    expect(stderr).toContain('kebab-case.js has wrong name.');
+    expect(stderr).toContain('kebab-case.js');
     expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
+  });
+
+  describe('overrides', () => {
+    test('should apply overrides to appropriate folders', async () => {
+      const { code, stderr } = await cli([], 'src-mock-with-overrides');
+
+      expect(stderr).toContain('kebab-case.js');
+      expect(stderr).not.toContain('camelFile.js');
+      expect(stderr).not.toContain('kebab-file.js');
+      expect(stderr).not.toContain('PascalFile.js');
+      expect(stderr).not.toContain('snake_file.js');
+      expect(code).toBe(ExitCodes.SuccessWithLintingErrors);
+    });
   });
 });

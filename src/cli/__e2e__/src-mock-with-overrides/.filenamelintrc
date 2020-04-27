@@ -1,0 +1,16 @@
+{
+  "format": "pascalCase",
+  "overrides": [{
+    "files": "camelCase/**",
+    "format": "camelCase"
+  }, {
+    "files": "snake_case/**",
+    "format": "snakeCase"
+  }, {
+    "files": "PascalCase/**",
+    "format": "pascalCase"
+  }, {
+    "files": "kebab-case/**",
+    "format": "kebabCase"
+  }]
+}
