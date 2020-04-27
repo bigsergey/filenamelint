@@ -1,26 +1,36 @@
 import glob from 'fast-glob';
 
-import { Formats, Options } from './options';
+import { Formats, Options, Patterns } from './options';
 
-export default async function getSources({
-  format,
-  ignore,
-  overrides,
-}: Options): Promise<{ files: string[]; format: Formats }[]> {
-  return Promise.all(
-    [
-      {
-        files: '**/*',
-        ignore,
-        format,
-      },
-      ...overrides.map((override) => ({
-        format,
-        ...override,
-      })),
-    ].map(async ({ files, ignore, format }) => ({
-      files: await glob(files, { ignore }),
-      format,
-    })),
-  );
+interface Source {
+  files: string | string[];
+  ignore?: Patterns;
+  format: Formats;
+}
+
+interface ResolvedSource {
+  files: string[];
+  format: Formats;
+}
+
+async function grabFiles({ files, ignore, format }: Source): Promise<ResolvedSource> {
+  return {
+    files: await glob(files, { ignore }),
+    format,
+  };
+}
+
+export default async function getSources({ format, ignore, overrides }: Options): Promise<ResolvedSource[]> {
+  const defaultSource = {
+    files: '**/*',
+    ignore,
+    format,
+  };
+
+  const overridesWithFormat = overrides.map((override) => ({
+    format,
+    ...override,
+  }));
+
+  return Promise.all([defaultSource, ...overridesWithFormat].map((source) => grabFiles(source)));
 }
