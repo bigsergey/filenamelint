@@ -1,6 +1,6 @@
 # filenamelint (work in progress)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/bigsergey/filenamelint.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/github/bigsergey/filenamelint/badge.svg?targetFile=package.json)](https://snyk.io/test/github/bigsergey/filenamelint?targetFile=package.json)
 [![Coverage Status](https://coveralls.io/repos/github/bigsergey/filenamelint/badge.svg)](https://coveralls.io/github/bigsergey/filenamelint)
 ![Node CI](https://github.com/bigsergey/filenamelint/workflows/Node%20CI/badge.svg)
 
