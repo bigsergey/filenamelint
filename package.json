@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/bigsergey/filenamelint#readme",
   "dependencies": {
-    "camelcase": "6.0.0",
+    "camelcase": "6.1.0",
     "chalk": "4.1.0",
     "commander": "5.1.0",
     "fast-glob": "3.2.4",
