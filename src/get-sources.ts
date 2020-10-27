@@ -27,10 +27,7 @@ export default async function getSources({ format, ignore, overrides }: Options)
     format,
   };
 
-  const overridesWithFormat = overrides.map((override) => ({
-    format,
-    ...override,
-  }));
+  const overridesWithFormat = overrides.map((override) => Object.assign({ format }, override));
 
   return Promise.all([defaultSource, ...overridesWithFormat].map((source) => grabFiles(source)));
 }
