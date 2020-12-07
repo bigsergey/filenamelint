@@ -51,7 +51,7 @@
     "commander": "6.2.0",
     "fast-glob": "3.2.4",
     "kebab-case": "1.0.0",
-    "snake-case": "3.0.3"
+    "snake-case": "3.0.4"
   },
   "devDependencies": {
     "@types/jest": "26.0.15",
