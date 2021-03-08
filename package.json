@@ -50,7 +50,7 @@
     "chalk": "4.1.0",
     "commander": "6.2.1",
     "fast-glob": "3.2.5",
-    "kebab-case": "1.0.0",
+    "kebab-case": "1.0.1",
     "snake-case": "3.0.4"
   },
   "devDependencies": {
